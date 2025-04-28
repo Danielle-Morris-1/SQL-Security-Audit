@@ -141,12 +141,5 @@ It also emphasized the importance of cross-team communication in cybersecurity �
 
 ---
 
-## 📫 Connect With Me!
-
-Let's stay connected and talk cybersecurity!  
-Feel free to reach out to me on [![LinkedIn](https://img.shields.io/badge/LinkedIn-DanielleMorris-blue?logo=linkedin&style=flat-square)](https://www.linkedin.com/in/danielle-morris-04232368/) for networking or collaboration opportunities.
-
----
-
 > 🔐 *"Security isn't a destination — it's a continuous journey."*
 
