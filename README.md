@@ -1,31 +1,17 @@
-# SQL Security Audit
+
+# SQL Threat Hunting for Unauthorized Access
 
 ## Scope
 
-In this project, I conducted a security audit for a fictional organization's internal systems by querying and analyzing authentication and device data. My responsibilities included securing systems against unauthorized access, investigating suspicious login activity, and auditing employee devices for compliance. I leveraged SQL queries with filtering techniques to examine the `log_in_attempts` and `employees` tables, identifying after-hours anomalies, and supporting endpoint patch management initiatives.
+In this project, I performed threat hunting activities on a fictional organization's internal systems by querying and analyzing authentication and device data using SQL. My focus was on identifying potential unauthorized access attempts and suspicious login activity. I leveraged SQL queries with filtering techniques on the `log_in_attempts` and `employees` tables to investigate after-hours anomalies. While not a full security audit, this initiative aimed to proactively identify and flag potentially malicious behavior.
 
-The `log_in_attempts` table had the following columns:
+The `log_in_attempts` table:
 
 ![image](https://github.com/user-attachments/assets/19083bfb-bee1-40b3-b092-cb60381965d2)
 
-The `employees` table had the following columns:
+The `employees` table:
 
 ![image](https://github.com/user-attachments/assets/ba17a9e5-fdfb-435b-930a-e396dd982c65)
-
----
-
-## 📑 Table of Contents
-- [Technology Utilized](#technology-utilized)
-- [Objectives](#objectives)
-- [Key Actions & Investigation Process](#key-actions--investigation-process)
-- [Skills Demonstrated](#skills-demonstrated)
-- [Final Reflection 🧠](#final-reflection-)
-
----
-## Technology Utilized 
-
-- **SQL Server** — For querying and analyzing authentication data.
-- **Cybersecurity Principles** — To interpret suspicious behaviors and data patterns.
 
 ---
 
@@ -43,93 +29,118 @@ The `employees` table had the following columns:
 ### 🔐 After-Hours Failed Login Attempts
 - Investigated suspicious activity that occurred after the organization’s business hours.
 - Retrieved all failed login attempts **after business hours** (after 18:00).
-- SQL filters used:  
+
+Query Input 🔽
+ 
   ```sql
   WHERE login_time > '18:00' AND success = FALSE**
+  ```
 
-<details>
-<summary>SQL Query Results</summary>
+SQL Output ⏬
   
 ![image](https://github.com/user-attachments/assets/cee3c49f-a444-4bfe-ba89-3dc2bfbcd038)
-</details>
+
+---
 
 ### 🗓️ Suspicious Login Attempts by Date
 - Investigated all login activity on May 8th and 9th, 2022 related to a potential breach.
-- SQL filters used:
+
+Query Input 🔽
+ 
   ```sql
   WHERE login_date = '2022-05-08' OR login_date = '2022-05-09'
+  ```
 
-<details>
-<summary>SQL Query Results</summary>
-  
+SQL Output ⏬
+
 ![image](https://github.com/user-attachments/assets/4e8ea17b-63b7-4ca9-845f-80639df77570)
-</details>
+
+---
 
 ### 🌎 Login Attempts Outside of Mexico
 - Investigated suspicious activity with login attempts, and it was determined that this activity happened outside of Mexico.
 - Filtered all login attempts originating outside Mexico to isolate suspicious geographic activity.
-- SQL filters used:
+
+Query Input 🔽
+  
   ```sql
   WHERE country NOT LIKE 'MEX%'
+  ```
 
-<details>
-<summary>SQL Query Results</summary>
+SQL Output ⏬
   
 ![image](https://github.com/user-attachments/assets/0cde470b-045e-48ac-83c3-8421b77999a5)
-</details>
+
+
+---
 
 ### 🏢 Device Audit: Marketing Department
 - Gathered employee device data from the Marketing department specifically in the East office.
-- SQL filters used:
+
+Query Input 🔽
+ 
   ```sql
   WHERE department = 'Marketing' AND office_location LIKE 'East%'
+  ```
 
-<details>
-<summary>SQL Query Results</summary>
+SQL Output ⏬
   
 ![image](https://github.com/user-attachments/assets/f360186c-8935-418c-9cd5-d79b41ffb4cf)
-</details>
+
+---
 
 ### 💼 Device Audit: Finance and Sales Departments
 - Retrieved device data for employees in Finance and Sales to support department-wide security updates.
-- SQL filters used:
+
+Query Input 🔽
+ 
   ```sql
   WHERE department = 'Finance' OR department = 'Sales'
+  ```
 
-<details>
-<summary>SQL Query Results</summary>
+SQL Output ⏬
   
 ![image](https://github.com/user-attachments/assets/0fe68a1f-6b38-4992-b2bd-34d496a51b91)
-</details>
+
+
+---
 
 ### 🚫 Excluding IT Department
 - Identified employee devices outside of the IT department for broader security patching.
-- SQL filters used:
+
+Query Input 🔽
+ 
   ```sql
   WHERE department NOT LIKE 'Information Technology'
+  ```
 
-<details>
-<summary>SQL Query Results</summary>
+SQL Output ⏬
 
   ![image](https://github.com/user-attachments/assets/ec65a945-158b-4b33-b5c7-8b645eb5ce96)
 
-</details>
+---
+
+## Suggested Remediations
+
+* **Implement stronger password policies:** Enforce complexity requirements and regular password changes to mitigate brute-force attacks.
+* **Enable Multi-Factor Authentication (MFA):** For all user accounts to add an extra layer of security and prevent unauthorized access even if passwords are compromised.
+* **Implement geographical access controls:** Restrict login attempts to specific countries or regions based on legitimate user locations.
+* **Monitor for unusual login activity:** Implement alerts in SIEM or monitoring tools for failed logins outside of business hours or from unexpected locations.
+* **Regularly audit user accounts and permissions:** Ensure that users only have the necessary access privileges.
+* **Investigate any anomalies promptly:** Establish clear procedures for investigating and responding to suspicious login attempts.
+* **Enhance endpoint security:** Ensure all devices have up-to-date antivirus and EDR solutions to prevent compromise.
 
 ---
 
-## Skills Demonstrated
+## Lessons Learned 🧠
 
-- SQL Query and Filtering
-- Data Analysis for Cybersecurity Investigations
-- Critical Thinking for Threat Detection
+This project reinforced the value of SQL in proactive threat hunting and security investigations. Key takeaways include:
 
----
-
-## Final Reflection 🧠
-
-This project strengthened my ability to extract actionable security insights from large datasets using SQL.  
-It also emphasized the importance of cross-team communication in cybersecurity — bridging technical analysis with clear, non-technical reporting that enables faster remediation and risk reduction across the organization.
-
+* **SQL's power in data analysis:** Its efficiency in filtering and extracting specific information from large datasets is crucial for identifying anomalies.
+* **The importance of context:** While SQL queries can highlight suspicious activity, understanding the organizational context (e.g., normal business hours, employee locations) is vital for accurate interpretation.
+* **Actionable insights for security improvements:** The findings from threat hunting exercises can directly inform the implementation of stronger security controls and policies.
+* **Collaboration is key:** Sharing these findings with the IT security team enables timely remediation and strengthens the overall security posture.
+  
 ---
 
 ## 🚀 Project Status
